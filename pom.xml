@@ -12,7 +12,7 @@
 	<artifactId>goodreads</artifactId>
 	<version>1.0.0</version>
 	<name>goodreads</name>
-	<description>A digital book library to store books data</description>
+	<description>A digital book management system.</description>
 	<url/>
 	<licenses>
 		<license/>
