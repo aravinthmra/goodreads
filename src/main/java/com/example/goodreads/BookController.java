@@ -27,6 +27,7 @@ public class BookController {
     }
 
     @GetMapping("/books")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ArrayList<Book> getBooks() {
         return bookService.getBooks();
     }
