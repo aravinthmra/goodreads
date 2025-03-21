@@ -1,14 +1,17 @@
 package com.example.goodreads.controller;
 
-import com.example.goodreads.service.BookService;
+import com.example.goodreads.service.BookH2Service;
 import com.example.goodreads.model.Book;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @RestController
 public class BookController {
-    BookService bookService = new BookService();
+
+    @Autowired
+    public BookH2Service bookService;
 
     @DeleteMapping("/books/{bookId}")
     public void deleteBook(@PathVariable("bookId") int bookId) {
