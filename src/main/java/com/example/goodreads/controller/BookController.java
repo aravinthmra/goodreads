@@ -1,8 +1,7 @@
-package com.example.goodreads;
+package com.example.goodreads.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
+import com.example.goodreads.service.BookService;
+import com.example.goodreads.model.Book;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

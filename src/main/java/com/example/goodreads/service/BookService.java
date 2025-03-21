@@ -1,9 +1,11 @@
-package com.example.goodreads;
+package com.example.goodreads.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import com.example.goodreads.BookRepository;
+
+import com.example.goodreads.model.Book;
+import com.example.goodreads.repository.BookRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 

@@ -1,4 +1,6 @@
-package com.example.goodreads;
+package com.example.goodreads.repository;
+
+import com.example.goodreads.model.Book;
 
 import java.util.ArrayList;
 
