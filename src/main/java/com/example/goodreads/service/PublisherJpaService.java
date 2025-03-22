@@ -49,4 +49,11 @@ public class PublisherJpaService implements PublisherRepository {
         publisherJpaRepository.save(newPublisher);
         return newPublisher;
     }
+
+    @Override
+    public void deletePublisher(int publisherId) {
+        if (getPublisherById(publisherId) != null)
+            publisherJpaRepository.deleteById(publisherId);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+    }
 }

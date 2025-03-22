@@ -11,4 +11,5 @@ public interface PublisherRepository {
     Publisher getPublisherById(int publisherId);
     Publisher addPublisher(Publisher publisher);
     Publisher updatePublisher(int publisherId, Publisher publisher);
+    void deletePublisher(int publisherId);
 }

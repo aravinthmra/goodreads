@@ -32,4 +32,9 @@ public class PublisherController {
     public Publisher updatePublisher(@RequestBody Publisher publisher, @PathVariable Integer publisherId) {
         return publisherJpaService.updatePublisher(publisherId, publisher);
     }
+
+    @DeleteMapping("/publishers/{publisherId}")
+    public void deletePublisher(@PathVariable Integer publisherId) {
+        publisherJpaService.deletePublisher(publisherId);
+    }
 }
