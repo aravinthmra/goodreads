@@ -44,7 +44,8 @@ public class PublisherJpaService implements PublisherRepository {
     public Publisher updatePublisher(int publisherId, Publisher publisher) {
         Publisher newPublisher = getPublisherById(publisherId);
 
-        if(publisher.getPublisherName() != null) newPublisher.setPublisherName(publisher.getPublisherName());
+        if(publisher.getPublisherName() != null)
+            newPublisher.setPublisherName(publisher.getPublisherName());
 
         publisherJpaRepository.save(newPublisher);
         return newPublisher;
