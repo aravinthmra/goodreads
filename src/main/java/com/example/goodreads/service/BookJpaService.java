@@ -1,6 +1,7 @@
 package com.example.goodreads.service;
 
 import com.example.goodreads.model.Book;
+import com.example.goodreads.model.Publisher;
 import com.example.goodreads.repository.BookJpaRepository;
 import com.example.goodreads.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,11 @@ public class BookJpaService implements BookRepository {
             bookJpaRepository.deleteById(bookId);
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
+    }
+
+    @Override
+    public Publisher getBookPublisher(int bookId){
+        Book book = getBookById(bookId);
+        return book.getPublisher();
     }
 }
