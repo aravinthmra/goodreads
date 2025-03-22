@@ -17,6 +17,8 @@ public class Book {
     @Column(name = "imageurl")
     private String imgUrl;
 
+    public Book(){}
+
     public Book(int id, String name, String imgUrl) {
         this.id = id;
         this.name = name;
