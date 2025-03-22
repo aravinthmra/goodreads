@@ -1,8 +1,20 @@
 package com.example.goodreads.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="book")
 public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "imageurl")
     private String imgUrl;
 
     public Book(int id, String name, String imgUrl) {
