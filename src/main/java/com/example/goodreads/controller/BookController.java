@@ -13,21 +13,6 @@ public class BookController {
     @Autowired
     public BookJpaService bookService;
 
-    @DeleteMapping("/books/{bookId}")
-    public void deleteBook(@PathVariable("bookId") int bookId) {
-        bookService.deleteBook(bookId);
-    }
-
-    @PutMapping("/books/{bookId}")
-    public Book updateBook(@PathVariable("bookId") int bookId, @RequestBody Book book) {
-        return bookService.updateBook(bookId, book);
-    }
-
-    @PostMapping("/books")
-    public Book addbook(@RequestBody Book book) {
-        return bookService.addBook(book);
-    }
-
     @GetMapping("/books")
     public ArrayList<Book> getBooks() {
         return bookService.getBooks();
@@ -38,4 +23,18 @@ public class BookController {
         return bookService.getBookById(bookId);
     }
 
+    @PostMapping("/books")
+    public Book addbook(@RequestBody Book book) {
+        return bookService.addBook(book);
+    }
+
+    @PutMapping("/books/{bookId}")
+    public Book updateBook(@PathVariable("bookId") int bookId, @RequestBody Book book) {
+        return bookService.updateBook(bookId, book);
+    }
+
+    @DeleteMapping("/books/{bookId}")
+    public void deleteBook(@PathVariable("bookId") int bookId) {
+        bookService.deleteBook(bookId);
+    }
 }
