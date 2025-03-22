@@ -33,4 +33,10 @@ public class PublisherJpaService implements PublisherRepository {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+    @Override
+    public Publisher addPublisher(Publisher publisher) {
+        publisherJpaRepository.save(publisher);
+        return publisher;
+    }
 }

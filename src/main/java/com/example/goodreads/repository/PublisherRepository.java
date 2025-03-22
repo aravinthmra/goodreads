@@ -9,4 +9,5 @@ import java.util.ArrayList;
 public interface PublisherRepository {
     ArrayList<Publisher> getPublishers();
     Publisher getPublisherById(int publisherId);
+    Publisher addPublisher(Publisher publisher);
 }
