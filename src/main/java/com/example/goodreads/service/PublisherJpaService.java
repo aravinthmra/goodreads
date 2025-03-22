@@ -39,4 +39,14 @@ public class PublisherJpaService implements PublisherRepository {
         publisherJpaRepository.save(publisher);
         return publisher;
     }
+
+    @Override
+    public Publisher updatePublisher(int publisherId, Publisher publisher) {
+        Publisher newPublisher = getPublisherById(publisherId);
+
+        if(publisher.getPublisherName() != null) newPublisher.setPublisherName(publisher.getPublisherName());
+
+        publisherJpaRepository.save(newPublisher);
+        return newPublisher;
+    }
 }

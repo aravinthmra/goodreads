@@ -27,4 +27,9 @@ public class PublisherController {
     public Publisher addPublisher(@RequestBody Publisher publisher) {
         return publisherJpaService.addPublisher(publisher);
     }
+
+    @PutMapping("/publishers/{publisherId}")
+    public Publisher updatePublisher(@RequestBody Publisher publisher, @PathVariable Integer publisherId) {
+        return publisherJpaService.updatePublisher(publisherId, publisher);
+    }
 }
