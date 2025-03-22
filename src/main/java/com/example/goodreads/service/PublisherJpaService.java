@@ -53,8 +53,9 @@ public class PublisherJpaService implements PublisherRepository {
 
     @Override
     public void deletePublisher(int publisherId) {
-        if (getPublisherById(publisherId) != null)
+        if (getPublisherById(publisherId) != null) {
             publisherJpaRepository.deleteById(publisherId);
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
     }
 }

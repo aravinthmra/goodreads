@@ -56,8 +56,9 @@ public class BookJpaService implements BookRepository {
 
     @Override
     public void deleteBook(int bookId) {
-        Book existingBook = getBookById(bookId);
-        bookJpaRepository.deleteById(existingBook.getId());
-        throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        if(getBookById(bookId) != null){
+            bookJpaRepository.deleteById(bookId);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
     }
 }
