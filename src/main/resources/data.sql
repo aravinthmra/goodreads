@@ -1,17 +1,15 @@
-insert into book(name, imageUrl) values('Harry Potter and the Philosopher''s Stone', 'harry_potter_1.jpg');
-insert into book(name, imageUrl) values('Harry Potter and the Chamber of Secrets','harry_potter_2.jpg');
-insert into book(name, imageUrl) values('Harry Potter and the Goblet of Fire', 'harry_potter_3.jpg');
-insert into book(name, imageUrl) values('Harry Potter and the Cursed Child','harry_potter_4.jpg');
-insert into book(name, imageUrl) values('The 3 Mistakes of My Life', 'mistakes_life.jpg');
-insert into book(name, imageUrl) values('Life of Pi', 'life_of_pi.jpg');
-insert into book(name, imageUrl) values('One Night at the Call Center','one_night_acc.jpg');
-insert into book(name, imageUrl) values('Half Girlfriend', 'half_gf.jpg');
-insert into book(name, imageUrl) values('The Secret', 'secret.jpg');
-insert into book(name, imageUrl) values('Rise', 'rise.jpg');
-
 insert into publisher (publisherName) VALUES ('Bloomsbury Publishing');
 insert into publisher (publisherName) VALUES ('Rupa Publications');
 insert into publisher (publisherName) VALUES ('Knopf Canada');
 insert into publisher (publisherName) VALUES ('Simon & Schuster');
 insert into publisher (publisherName) VALUES ('Penguin Random House');
 insert into publisher (publisherName) VALUES ('Viking Press');
+
+insert into book (name, imageUrl, publisherId) VALUES ('Harry Potter and the Sorcerer''s Stone', 'harry_potter_and_the_sorcerers_stone.jpg', 1);
+insert into book (name, imageUrl, publisherId) VALUES ('The Mote in Gods Eye', 'mote_in_gods_eye.jpg', 3);
+insert into book (name, imageUrl, publisherId) VALUES ('The Talisman', 'the_talisman.jpg', 1);
+insert into book (name, imageUrl, publisherId) VALUES ('The Stand', 'the_stand.jpg', 6);
+insert into book (name, imageUrl, publisherId) VALUES ('Black House', 'black_house.jpg', 2);
+insert into book (name, imageUrl, publisherId) VALUES ('Half Girlfriend', 'half_girlfriend.jpg', 2);
+insert into book (name, imageUrl, publisherId) VALUES ('The Secret', 'the_secret.jpg', 4);
+insert into book (name, imageUrl, publisherId) VALUES ('The 3 Mistakes of My Life', 'the_3_mistakes_of_my_life.jpg', 2);
