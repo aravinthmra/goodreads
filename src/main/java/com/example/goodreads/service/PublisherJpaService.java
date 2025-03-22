@@ -4,7 +4,9 @@ import com.example.goodreads.model.Publisher;
 import com.example.goodreads.repository.PublisherJpaRepository;
 import com.example.goodreads.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,5 +22,15 @@ public class PublisherJpaService implements PublisherRepository {
         List<Publisher> publisherList = publisherJpaRepository.findAll();
         ArrayList<Publisher> publishers = new ArrayList<>(publisherList);
         return publishers;
+    }
+
+    @Override
+    public Publisher getPublisherById(int publisherId) {
+        try {
+            Publisher publisher = publisherJpaRepository.findById(publisherId).get();
+            return publisher;
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }
