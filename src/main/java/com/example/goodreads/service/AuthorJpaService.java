@@ -1,11 +1,13 @@
 package com.example.goodreads.service;
 
 import com.example.goodreads.model.Author;
+import com.example.goodreads.model.Book;
 import com.example.goodreads.repository.AuthorJpaRepository;
 import com.example.goodreads.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -55,6 +57,12 @@ public class AuthorJpaService implements AuthorRepository {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
 
+    }
+
+    @Override
+    public List<Book> getAuthorBooks(int authorId) {
+        Author author = getAuthorById(authorId);
+        return author.getBooks();
     }
 
 }

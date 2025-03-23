@@ -1,11 +1,13 @@
 package com.example.goodreads.controller;
 
 import com.example.goodreads.model.Author;
+import com.example.goodreads.model.Book;
 import com.example.goodreads.service.AuthorJpaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class AuthorController {
@@ -36,5 +38,10 @@ public class AuthorController {
     @DeleteMapping("/authors/{id}")
     public void deleteAuthor(@PathVariable("id") int id) {
         authorJpaService.deleteAuthor(id);
+    }
+
+    @GetMapping("/authors/{id}/books")
+    public List<Book> getAuthorBooks(@PathVariable("id") int id) {
+        return authorJpaService.getAuthorBooks(id);
     }
 }

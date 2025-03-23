@@ -1,8 +1,11 @@
 package com.example.goodreads.repository;
 
 import com.example.goodreads.model.Author;
+import com.example.goodreads.model.Book;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface AuthorRepository {
     ArrayList<Author> getAuthors();
@@ -10,4 +13,5 @@ public interface AuthorRepository {
     Author addAuthor(Author author);
     Author updateAuthor(int authorId, Author author);
     void deleteAuthor(int authorId);
+    List<Book> getAuthorBooks(int id);
 }
