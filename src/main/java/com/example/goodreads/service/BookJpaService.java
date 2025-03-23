@@ -4,7 +4,6 @@ import com.example.goodreads.model.Book;
 import com.example.goodreads.model.Publisher;
 import com.example.goodreads.repository.BookJpaRepository;
 import com.example.goodreads.repository.BookRepository;
-import com.example.goodreads.repository.PublisherJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,10 +16,10 @@ import java.util.List;
 public class BookJpaService implements BookRepository {
 
     @Autowired
-    private BookJpaRepository bookJpaRepository;
+    private BookJpaRepository  bookJpaRepository;
 
     @Autowired
-    private PublisherJpaRepository publisherJpaRepository;
+    private PublisherJpaService publisherJpaService;
 
     @Override
     public ArrayList<Book> getBooks() {
@@ -45,7 +44,7 @@ public class BookJpaService implements BookRepository {
         Publisher newpublisher = book.getPublisher();
         int publisherId = newpublisher.getPublisherId();
         try {
-            Publisher publisher = publisherJpaRepository.findById(publisherId).get();
+            Publisher publisher = publisherJpaService.getPublisherById(publisherId);
             book.setPublisher(publisher);
             bookJpaRepository.save(book);
             return book;
@@ -65,7 +64,7 @@ public class BookJpaService implements BookRepository {
         if(book.getPublisher() != null) {
             Publisher publisher = book.getPublisher();
             int publisherId = publisher.getPublisherId();
-            Publisher newPublisher = publisherJpaRepository.findById(publisherId).get();
+            Publisher newPublisher = publisherJpaService.getPublisherById(publisherId);
             newBook.setPublisher(newPublisher);
         }
 
