@@ -30,7 +30,7 @@ public class PublisherJpaService implements PublisherRepository {
             Publisher publisher = publisherJpaRepository.findById(publisherId).get();
             return publisher;
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Wrong publisherId");
         }
     }
 
