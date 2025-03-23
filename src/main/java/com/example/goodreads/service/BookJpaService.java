@@ -43,14 +43,11 @@ public class BookJpaService implements BookRepository {
     public Book addBook(Book book) {
         Publisher newpublisher = book.getPublisher();
         int publisherId = newpublisher.getPublisherId();
-        try {
-            Publisher publisher = publisherJpaService.getPublisherById(publisherId);
-            book.setPublisher(publisher);
-            bookJpaRepository.save(book);
-            return book;
-        } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Wrong publisherId");
-        }
+
+        Publisher publisher = publisherJpaService.getPublisherById(publisherId);
+        book.setPublisher(publisher);
+        bookJpaRepository.save(book);
+        return book;
     }
 
     @Override
