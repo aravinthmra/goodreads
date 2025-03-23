@@ -1,5 +1,6 @@
 package com.example.goodreads.controller;
 
+import com.example.goodreads.model.Author;
 import com.example.goodreads.model.Book;
 import com.example.goodreads.model.Publisher;
 import com.example.goodreads.service.BookJpaService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class BookController {
@@ -42,5 +44,10 @@ public class BookController {
     @GetMapping("/books/{bookId}/publisher")
     public Publisher getPublisher(@PathVariable("bookId") int bookId) {
         return bookService.getBookPublisher(bookId);
+    }
+
+    @GetMapping("/books/{bookId}/authors")
+    public List<Author> getBookAuthors(@PathVariable("bookId") int bookId) {
+        return bookService.getBookAuthors(bookId);
     }
 }

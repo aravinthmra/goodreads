@@ -16,3 +16,10 @@ CREATE TABLE IF NOT EXISTS book(
     FOREIGN KEY (publisherId) REFERENCES publisher(publisherId)
 );
 
+CREATE TABLE IF NOT EXISTS book_author (
+    bookId INT,
+    authorId INT,
+    PRIMARY KEY (bookId, authorId),
+    FOREIGN KEY (bookId) REFERENCES Book(id),
+    FOREIGN KEY (authorId) REFERENCES Author(authorId)
+);

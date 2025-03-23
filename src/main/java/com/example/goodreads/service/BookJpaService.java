@@ -1,5 +1,6 @@
 package com.example.goodreads.service;
 
+import com.example.goodreads.model.Author;
 import com.example.goodreads.model.Book;
 import com.example.goodreads.model.Publisher;
 import com.example.goodreads.repository.BookJpaRepository;
@@ -7,6 +8,7 @@ import com.example.goodreads.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -82,5 +84,11 @@ public class BookJpaService implements BookRepository {
     public Publisher getBookPublisher(int bookId){
         Book book = getBookById(bookId);
         return book.getPublisher();
+    }
+
+    @Override
+    public List<Author> getBookAuthors(int bookId) {
+        Book book = getBookById(bookId);
+        return book.getAuthors();
     }
 }
