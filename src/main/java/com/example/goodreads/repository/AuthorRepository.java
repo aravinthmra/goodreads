@@ -14,4 +14,7 @@ public interface AuthorRepository {
     Author updateAuthor(int authorId, Author author);
     void deleteAuthor(int authorId);
     List<Book> getAuthorBooks(int id);
+
+    // Retrieve multiple author entities from the database
+    List<Author> getAllAuthors(List<Integer> authorIds);
 }

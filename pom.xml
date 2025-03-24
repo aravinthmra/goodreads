@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>goodreads</artifactId>
-	<version>4.11.0</version>
+	<version>4.11.1</version>
 	<name>goodreads</name>
 	<description>A digital book management system.</description>
 	<url/>

@@ -7,7 +7,6 @@ import com.example.goodreads.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -63,6 +62,12 @@ public class AuthorJpaService implements AuthorRepository {
     public List<Book> getAuthorBooks(int authorId) {
         Author author = getAuthorById(authorId);
         return author.getBooks();
+    }
+
+    // Retrieve multiple author entities from the database
+    @Override
+    public List<Author> getAllAuthors(List<Integer> authorIds) {
+        return authorJpaRepository.findAllById(authorIds);
     }
 
 }
