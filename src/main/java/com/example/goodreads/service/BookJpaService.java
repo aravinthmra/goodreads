@@ -57,6 +57,8 @@ public class BookJpaService implements BookRepository {
                 .collect(Collectors.toList());
 
         List<Author> authors = authorJpaService.getAllAuthors(authorIds);
+        if(authorIds.size() != authors.size()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Some of authors are not found");
+
         book.setAuthors(authors);
 
         return bookJpaRepository.save(book);
