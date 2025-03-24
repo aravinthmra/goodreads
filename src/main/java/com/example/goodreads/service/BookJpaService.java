@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookJpaService implements BookRepository {
@@ -22,6 +23,9 @@ public class BookJpaService implements BookRepository {
 
     @Autowired
     private PublisherJpaService publisherJpaService;
+
+    @Autowired
+    private AuthorJpaService authorJpaService;
 
     @Override
     public ArrayList<Book> getBooks() {
@@ -47,8 +51,15 @@ public class BookJpaService implements BookRepository {
 
         Publisher publisher = publisherJpaService.getPublisherById(publisherId);
         book.setPublisher(publisher);
-        bookJpaRepository.save(book);
-        return book;
+
+        List<Integer> authorIds = book.getAuthors().stream()
+                .map(Author::getAuthorId)
+                .collect(Collectors.toList());
+
+        List<Author> authors = authorJpaService.getAllAuthors(authorIds);
+        book.setAuthors(authors);
+
+        return bookJpaRepository.save(book);
     }
 
     @Override
