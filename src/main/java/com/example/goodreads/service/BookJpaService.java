@@ -43,8 +43,7 @@ public class BookJpaService implements BookRepository {
 
     @Override
     public Book addBook(Book book) {
-        Publisher newpublisher = book.getPublisher();
-        int publisherId = newpublisher.getPublisherId();
+        int publisherId = book.getPublisher().getPublisherId();
 
         Publisher publisher = publisherJpaService.getPublisherById(publisherId);
         book.setPublisher(publisher);
