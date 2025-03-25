@@ -72,10 +72,37 @@ public class AuthorJpaService implements AuthorRepository {
 
     @Override
     public Author updateAuthor(int authorId, Author author) {
-        Author new_author = getAuthorById(authorId);
-        if (author.getAuthorName() != null) new_author.setAuthorName(author.getAuthorName());
-        authorJpaRepository.save(new_author);
-        return new_author;
+        Author newAuthor = authorJpaRepository.findById(authorId).get();
+        if (author.getAuthorName() != null) {
+            newAuthor.setAuthorName(author.getAuthorName());
+        }
+        if (author.getBooks() != null) {
+            // Clear all the existing associations of the author
+            List<Book> books = newAuthor.getBooks();
+            for (Book book : books) {
+                book.getAuthors().remove(newAuthor);
+            }
+            bookJpaRepository.saveAll(books);
+
+            // Extract book IDs of the new books of the author
+            List<Integer> newBookIds = new ArrayList<>();
+            for (Book book : author.getBooks()) {
+                newBookIds.add(book.getId());
+            }
+
+            // Fetch all the new books from the database
+            List<Book> newBooks = bookJpaRepository.findAllById(newBookIds);
+
+            // Add the new associations of the author
+            for (Book book : newBooks) {
+                book.getAuthors().add(newAuthor);
+            }
+            bookJpaRepository.saveAll(newBooks);
+
+            // Map the new books to the author
+            newAuthor.setBooks(newBooks);
+        }
+        return authorJpaRepository.save(newAuthor);
     }
 
     @Override
