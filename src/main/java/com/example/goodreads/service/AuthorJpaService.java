@@ -107,10 +107,26 @@ public class AuthorJpaService implements AuthorRepository {
 
     @Override
     public void deleteAuthor(int authorId) {
-        if(getAuthorById(authorId) != null) {
+        try {
+            // Fetch the author entity
+            Author author = authorJpaRepository.findById(authorId).get();
+
+            // Remove the associations
+            List<Book> books = author.getBooks();
+            for (Book book : books) {
+                book.getAuthors().remove(author);
+            }
+
+            // Update the book entity after removing the association
+            bookJpaRepository.saveAll(books);
+
+            // Delete the author
             authorJpaRepository.deleteById(authorId);
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        throw new ResponseStatusException(HttpStatus.NO_CONTENT);
 
     }
 
