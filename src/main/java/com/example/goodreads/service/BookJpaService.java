@@ -79,6 +79,17 @@ public class BookJpaService implements BookRepository {
             newBook.setPublisher(newPublisher);
         }
 
+//        book cannot exist if any of it's Author doesn't exist
+        if(book.getAuthors() != null) {
+            List<Integer> authorIds = book.getAuthors().stream()
+                    .map(Author::getAuthorId)
+                    .collect(Collectors.toList());
+
+            List<Author> authors = authorJpaService.getAllAuthors(authorIds);
+            if(authorIds.size() != authors.size()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Some of authors are not found");
+            newBook.setAuthors(authors);
+        }
+
         bookJpaRepository.save(newBook);
         return newBook;
 
