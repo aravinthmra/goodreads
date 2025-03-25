@@ -1,6 +1,8 @@
 package com.example.goodreads.service;
 
+import com.example.goodreads.model.Book;
 import com.example.goodreads.model.Publisher;
+import com.example.goodreads.repository.BookJpaRepository;
 import com.example.goodreads.repository.PublisherJpaRepository;
 import com.example.goodreads.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class PublisherJpaService implements PublisherRepository {
 
     @Autowired
     private PublisherJpaRepository publisherJpaRepository;
+
+    @Autowired
+    private BookJpaRepository bookJpaRepository;
 
     @Override
     public ArrayList<Publisher> getPublishers() {
@@ -53,9 +58,26 @@ public class PublisherJpaService implements PublisherRepository {
 
     @Override
     public void deletePublisher(int publisherId) {
-        if (getPublisherById(publisherId) != null) {
+        try {
+            // Fetch the publisher entity
+            Publisher publisher = publisherJpaRepository.findById(publisherId).get();
+
+            // Fetch books associated with the publisher
+            ArrayList<Book> books = bookJpaRepository.findByPublisher(publisher);
+
+            // Iterate over the books and set their publisher reference to NULL
+            for (Book book : books) {
+                book.setPublisher(null);
+            }
+
+            // Save the updated books
+            bookJpaRepository.saveAll(books);
+
+            // Delete the publisher
             publisherJpaRepository.deleteById(publisherId);
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        throw new ResponseStatusException(HttpStatus.NO_CONTENT);
     }
 }
