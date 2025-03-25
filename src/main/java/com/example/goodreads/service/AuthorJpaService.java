@@ -5,18 +5,23 @@ import com.example.goodreads.model.Book;
 import com.example.goodreads.repository.AuthorJpaRepository;
 import com.example.goodreads.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorJpaService implements AuthorRepository {
 
     @Autowired
     private AuthorJpaRepository authorJpaRepository;
+
+    @Autowired
+    private BookJpaService bookJpaService;
 
     @Override
     public ArrayList<Author> getAuthors() {
@@ -37,7 +42,29 @@ public class AuthorJpaService implements AuthorRepository {
 
     @Override
     public Author addAuthor(Author author) {
-        authorJpaRepository.save(author);
+//        Author can exist even though a Book does not exist
+        if(!(author.getBooks().isEmpty())) {
+            List<Integer> bookIds = new ArrayList<>();
+            for (Book book : author.getBooks()) {
+                bookIds.add(book.getId());
+            }
+
+            List<Book> books = bookJpaService.getAllBooks(bookIds);
+            author.setBooks(books);
+
+            // save the author entity
+            authorJpaRepository.save(author);
+
+            // map author to the books
+            for (Book book : books) {
+                book.getAuthors().add(author);
+
+                // update books in the database
+                bookJpaService.updateBook(book.getId(), book);
+            }
+
+
+        } else authorJpaRepository.save(author);
         return author;
     }
 

@@ -8,7 +8,6 @@ import com.example.goodreads.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -112,5 +111,10 @@ public class BookJpaService implements BookRepository {
     public List<Author> getBookAuthors(int bookId) {
         Book book = getBookById(bookId);
         return book.getAuthors();
+    }
+
+    @Override
+    public List<Book> getAllBooks(List<Integer> bookIds) {
+        return bookJpaRepository.findAllById(bookIds);
     }
 }
