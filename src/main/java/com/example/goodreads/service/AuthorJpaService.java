@@ -4,6 +4,7 @@ import com.example.goodreads.model.Author;
 import com.example.goodreads.model.Book;
 import com.example.goodreads.repository.AuthorJpaRepository;
 import com.example.goodreads.repository.AuthorRepository;
+import com.example.goodreads.repository.BookJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class AuthorJpaService implements AuthorRepository {
     private AuthorJpaRepository authorJpaRepository;
 
     @Autowired
-    private BookJpaService bookJpaService;
+    private BookJpaRepository bookJpaRepository;
 
     @Override
     public ArrayList<Author> getAuthors() {
@@ -42,30 +43,31 @@ public class AuthorJpaService implements AuthorRepository {
 
     @Override
     public Author addAuthor(Author author) {
-//        Author can exist even though a Book does not exist
-        if(!(author.getBooks().isEmpty())) {
-            List<Integer> bookIds = new ArrayList<>();
-            for (Book book : author.getBooks()) {
-                bookIds.add(book.getId());
-            }
+        // Extract book IDs from the request object
+        List<Integer> bookIds = new ArrayList<>();
+        for (Book book : author.getBooks()) {
+            bookIds.add(book.getId());
+        }
 
-            List<Book> books = bookJpaService.getAllBooks(bookIds);
-            author.setBooks(books);
+        // Retrieve the book entities from the database
+        List<Book> books = bookJpaRepository.findAllById(bookIds);
 
-            // save the author entity
-            authorJpaRepository.save(author);
+        // Map the books to the author
+        author.setBooks(books);
 
-            // map author to the books
-            for (Book book : books) {
-                book.getAuthors().add(author);
+        // Add the author to all the books
+        for (Book book : books) {
+            book.getAuthors().add(author);
+        }
 
-                // update books in the database
-                bookJpaService.updateBook(book.getId(), book);
-            }
+        // Save the author entity
+        Author savedAuthor = authorJpaRepository.save(author);
 
+        // Save all the book entities
+        bookJpaRepository.saveAll(books);
 
-        } else authorJpaRepository.save(author);
-        return author;
+        // Return the saved author
+        return savedAuthor;
     }
 
     @Override
