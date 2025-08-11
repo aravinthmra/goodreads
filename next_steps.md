@@ -1,11 +1,12 @@
 Next steps:
-✅ Secure endpoints using JWT (e.g. /books, /authors)
-✅ Add JWT filter to decode + validate tokens
-✅ Attach JWT in Postman with Authorization: Bearer <token>
-✅ Build user-based features (like reading lists!)
+
+- [x] Secure endpoints using JWT (e.g. /books, /authors) (disabled for testing)
+- [ ] Add JWT filter to decode + validate tokens
+- [ ] Attach JWT in Postman with Authorization: Bearer <token>
+- [ ] Build user-based features (like reading lists!)
 
 
-My list (features):
+My list (feature-pipeline):
 
     sign-up page (form)
     profile page

@@ -19,6 +19,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()  // Login/Registration open to all
+                .requestMatchers("**").permitAll() // for testing
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().sameOrigin()
