@@ -6,6 +6,11 @@ import com.example.goodreads.model.Publisher;
 import com.example.goodreads.repository.BookJpaRepository;
 import com.example.goodreads.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaUpdate;
+import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookJpaService implements BookRepository {
+
+    @Autowired private EntityManager entityManager;
 
     @Autowired
     private BookJpaRepository  bookJpaRepository;
@@ -64,32 +71,20 @@ public class BookJpaService implements BookRepository {
     }
 
     @Override
+    @Transactional
     public Book updateBook(int bookId, Book book) {
-        Book newBook = getBookById(bookId);
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaUpdate<Book> update = cb.createCriteriaUpdate(Book.class);
+        Root<Book> root = update.from(Book.class);
 
-        if(book.getName() != null) newBook.setName(book.getName());
+        update.set("name", book.getName());
+        update.set("imgUrl", book.getImgUrl());
 
-        if(book.getImgUrl() != null) newBook.setImgUrl(book.getImgUrl());
+        update.where(cb.equal(root.get("id"), bookId));
 
-        if(book.getPublisher() != null) {
-            int publisherId = book.getPublisher().getPublisherId();
-            Publisher newPublisher = publisherJpaService.getPublisherById(publisherId);
-            newBook.setPublisher(newPublisher);
-        }
+        entityManager.createQuery(update).executeUpdate();
 
-//        book cannot exist if any of it's Author doesn't exist
-        if(book.getAuthors() != null) {
-            List<Integer> authorIds = book.getAuthors().stream()
-                    .map(Author::getAuthorId)
-                    .collect(Collectors.toList());
-
-            List<Author> authors = authorJpaService.getAllAuthors(authorIds);
-            if(authorIds.size() != authors.size()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Some of authors are not found");
-            newBook.setAuthors(authors);
-        }
-
-        bookJpaRepository.save(newBook);
-        return newBook;
+        return book;
 
     }
 
