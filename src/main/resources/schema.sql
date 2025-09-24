@@ -1,3 +1,10 @@
+-- Drop tables in the correct order to avoid foreign key issues
+DROP TABLE IF EXISTS book_author;
+DROP TABLE IF EXISTS author;
+DROP TABLE IF EXISTS book;
+DROP TABLE IF EXISTS publisher;
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE IF NOT EXISTS publisher (
     publisherId INT PRIMARY KEY AUTO_INCREMENT,
     publisherName varchar(255)
