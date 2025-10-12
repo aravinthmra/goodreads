@@ -7,10 +7,10 @@ public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "publisherid")
+    @Column(name = "publisher_id")
     private int publisherId;
 
-    @Column(name = "publishername")
+    @Column(name = "publisher_name")
     private String publisherName;
 
     public Publisher() {}

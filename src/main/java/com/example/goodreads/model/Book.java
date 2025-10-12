@@ -12,13 +12,13 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "book_id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "book_name")
     private String name;
 
-    @Column(name = "imageurl")
+    @Column(name = "image_url")
     private String imgUrl;
 
     public Book(){}
@@ -54,7 +54,7 @@ public class Book {
     }
 
     @ManyToOne
-    @JoinColumn(name = "publisherid")
+    @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
     public Publisher getPublisher() {
@@ -68,8 +68,8 @@ public class Book {
     @ManyToMany
     @JoinTable(
             name = "book_author",
-            joinColumns = @JoinColumn(name = "bookid"),
-            inverseJoinColumns = @JoinColumn(name = "authorid")
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     @JsonIgnoreProperties("books")
     private List<Author> authors = new ArrayList<>();

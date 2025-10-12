@@ -12,10 +12,10 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "authorid")
+    @Column(name = "author_id")
     private int authorId;
 
-    @Column(name = "authorname")
+    @Column(name = "author_name")
     private String authorName;
 
     public Author(){}

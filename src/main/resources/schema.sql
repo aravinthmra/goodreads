@@ -6,33 +6,33 @@ DROP TABLE IF EXISTS publisher;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS publisher (
-    publisherId INT PRIMARY KEY AUTO_INCREMENT,
-    publisherName varchar(255)
+    publisher_id INT PRIMARY KEY AUTO_INCREMENT,
+    publisher_name VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS author (
-  authorId INT PRIMARY KEY AUTO_INCREMENT,
-  authorName varchar(255)
+    author_id INT PRIMARY KEY AUTO_INCREMENT,
+    author_name VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS book(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name varchar(255),
-    imageUrl varchar(255),
-    publisherId INT,
-    FOREIGN KEY (publisherId) REFERENCES publisher(publisherId)
+    book_id INT PRIMARY KEY AUTO_INCREMENT,
+    book_name VARCHAR(255),
+    image_url VARCHAR(255),
+    publisher_id INT,
+    FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id)
 );
 
 CREATE TABLE IF NOT EXISTS book_author (
-    bookId INT,
-    authorId INT,
-    PRIMARY KEY (bookId, authorId),
-    FOREIGN KEY (bookId) REFERENCES Book(id),
-    FOREIGN KEY (authorId) REFERENCES Author(authorId)
+    book_id INT,
+    author_id INT,
+    PRIMARY KEY (book_id, author_id),
+    FOREIGN KEY (book_id) REFERENCES book(book_id),
+    FOREIGN KEY (author_id) REFERENCES author(author_id)
 );
 
 CREATE TABLE IF NOT EXISTS users (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 );
