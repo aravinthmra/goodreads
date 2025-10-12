@@ -1,0 +1,24 @@
+server:
+    port: 8080
+    error:
+      include-message: always
+
+spring:
+  datasource:
+    url: ${DATABASE-URL}
+    username: ${DATABASE-USERNAME}
+    password: ${DATABASE-PASSWORD}
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none         # ✅ prevents auto-creation/update of tables
+    show-sql: true           # optional: prints SQL queries in console
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: never            # ✅ prevents schema.sql and data.sql from running automatically
