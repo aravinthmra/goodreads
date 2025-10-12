@@ -10,6 +10,16 @@ spring:
     password: ${DATABASE-PASSWORD}
     driverClassName: org.postgresql.Driver
 
+    hikari:
+      minimum-idle: 2          # minimum idle connections
+      maximum-pool-size: 10    # don't exceed free-tier limits
+      idle-timeout: 300000      # 5 minutes (ms) before idle connections are closed
+      max-lifetime: 1800000     # 30 minutes (ms) max life of a connection
+      connection-timeout: 30000 # 30 seconds to get a connection
+      validation-timeout: 5000  # 5 seconds to check if connection is alive
+      pool-name: HikariCP
+
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
